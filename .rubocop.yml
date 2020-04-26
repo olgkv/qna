@@ -1,0 +1,64 @@
+require:
+  - rubocop-rspec
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.7.1
+  Exclude:
+    - 'bundle/**/*'
+    - 'vendor/**/*'
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'script/**/*'
+    - 'support/**/*'
+    - 'test/**/*'
+    - 'tmp/**/*'
+
+Rails:
+  Enabled: true
+
+Rails/Delegate:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - "config/initializers/devise.rb"
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context', 'feature', 'scenario', 'namespace']
+  Exclude:
+    - "spec/**/*.rb"
+    - "config/environments/production.rb"
+    - 'Rakefile'
+    - '**/*.rake'
+
+Metrics/MethodLength:
+  Exclude:
+    - "db/migrate/*.rb"
+
+Rails/FilePath:
+  Exclude:
+    - "spec/rails_helper.rb"
+
+RSpec/ImplicitExpect:
+  Enabled: false
+
+Rails/Validation:
+  Enabled: false
