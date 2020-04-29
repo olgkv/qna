@@ -1,13 +1,11 @@
 class AnswersController < ApplicationController
-  expose :question, shallow_child: :answer
-  expose :answer, shallow_parent: :question
-  expose :answers, from: :question
+  before_action :set_question, only: %i[create]
 
   def create
-    answer = question.answers.new(answer_params)
+    @answer = @question.answers.new(answer_params)
 
-    if answer.save
-      redirect_to question_answers_path(answer)
+    if @answer.save
+      redirect_to question_answers_path(@answer)
     else
       render :new
     end
@@ -17,5 +15,9 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body)
+  end
+
+  def set_question
+    @question = Question.find(params[:question_id])
   end
 end
