@@ -5,7 +5,7 @@ In order to ask questions
 As an unauthorized user
 I'd like to be able to sign in
 " do
-  given(:user) { User.create!(email: 'user@test.com', password: '123456789') }
+  given(:user) { create(:user) }
 
   background { visit new_user_session_path }
 
