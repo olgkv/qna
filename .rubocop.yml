@@ -60,6 +60,11 @@ Rails/FilePath:
 RSpec/ImplicitExpect:
   Enabled: false
 
+RSpec/MultipleExpectations:
+  Enabled: true
+  Exclude:
+    - "spec/features/**/*.rb"
+
 RSpec/DescribedClass:
   Enabled: false
 
