@@ -65,3 +65,6 @@ RSpec/DescribedClass:
 
 Rails/Validation:
   Enabled: false
+
+Capybara/FeatureMethods:
+  Enabled: false
