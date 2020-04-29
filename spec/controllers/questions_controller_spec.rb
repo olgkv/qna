@@ -111,6 +111,8 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     context 'with invalid attributes' do
+      let(:question) { create(:question, title: 'MyString', body: 'MyText') }
+
       before { patch :update, params: { id: question, question: attributes_for(:question, :invalid) } }
 
       it 'does not change question' do
