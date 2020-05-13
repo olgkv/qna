@@ -32,9 +32,7 @@ feature 'User can create an answer to the question', "
   describe 'Unauthenticated user' do
     scenario 'Cannot answer the question' do
       visit question_path question
-
-      fill_in 'Body', with: 'Test answer body text'
-      click_on 'Answer'
+      click_on 'Answer the question'
 
       expect(page).to have_content 'You need to sign in or sign up before continuing.'
     end
