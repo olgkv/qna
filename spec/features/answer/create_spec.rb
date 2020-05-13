@@ -12,11 +12,13 @@ feature 'User can create an answer to the question', "
     background do
       sign_in(user)
       visit question_path(question)
-      click_on 'Answer the question'
     end
 
     scenario 'Answer the question' do
+      expect(page).to have_current_path(question_path(question))
+
       fill_in 'Body', with: 'Good. Answer body text'
+
       click_on 'Answer'
 
       expect(page).to have_content 'Your answer was successfully created'
@@ -25,6 +27,7 @@ feature 'User can create an answer to the question', "
 
     scenario 'Cannot answer the question with a blank body' do
       click_on 'Answer'
+
       expect(page).to have_content "Body can't be blank"
     end
   end
@@ -32,7 +35,7 @@ feature 'User can create an answer to the question', "
   describe 'Unauthenticated user' do
     scenario 'Cannot answer the question' do
       visit question_path question
-      click_on 'Answer the question'
+      click_on 'Answer'
 
       expect(page).to have_content 'You need to sign in or sign up before continuing.'
     end

@@ -1,6 +1,6 @@
-h1=@question.title
-p=@question.body
+= render @question
 
-=link_to 'Answer the question', new_question_answer_path(@question)
+h2= 'Answer the question'
+=render 'answers/form', question: @question, answer: @answer
 
 =render 'answers/answers', answers: @answers
