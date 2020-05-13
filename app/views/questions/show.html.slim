@@ -1,2 +1,6 @@
 h1=@question.title
 p=@question.body
+
+=link_to 'Answer the question', new_question_answer_path(@question)
+
+=render 'answers/answers', answers: @answers

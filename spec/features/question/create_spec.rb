@@ -7,7 +7,7 @@ I'd like to be able to ask the question
 " do
   given(:user) { create(:user) }
 
-  describe 'Authenticated user do' do
+  describe 'Authenticated user' do
     background do
       sign_in(user)
       visit questions_path
@@ -32,7 +32,7 @@ I'd like to be able to ask the question
     end
   end
 
-  describe 'Unauthenticated user do' do
+  describe 'Unauthenticated user' do
     scenario 'Unauthenticated user tries to ask a question' do
       visit questions_path
       click_on 'Ask question'
