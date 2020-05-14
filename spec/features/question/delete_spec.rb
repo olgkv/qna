@@ -13,6 +13,7 @@ feature 'An author of the question can delete the own question' do
 
     scenario 'can delete the own question' do
       visit question_path(question1)
+
       click_on 'Delete'
 
       expect(page).to have_content 'Question was successfully deleted'
@@ -20,9 +21,8 @@ feature 'An author of the question can delete the own question' do
 
     scenario "cannot delete someone's question" do
       visit question_path(question2)
-      click_on 'Delete'
 
-      expect(page).to have_content 'Cannot delete the question'
+      expect(page).not_to have_link 'Delete'
     end
   end
 end
