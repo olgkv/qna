@@ -8,6 +8,7 @@ feature 'An author of the question can delete the own question' do
     given(:user2) { create(:user) }
     given(:question1) { create(:question, author: user1) }
     given(:question2) { create(:question, author: user2) }
+
     before { sign_in(user1) }
 
     scenario 'can delete the own question' do
@@ -19,15 +20,6 @@ feature 'An author of the question can delete the own question' do
 
     scenario "cannot delete someone's question" do
       visit question_path(question2)
-      click_on 'Delete'
-
-      expect(page).to have_content 'Cannot delete the question'
-    end
-  end
-
-  describe 'Unauthenticated user' do
-    scenario 'cannot delete a question' do
-      visit question_path(question1)
       click_on 'Delete'
 
       expect(page).to have_content 'Cannot delete the question'
