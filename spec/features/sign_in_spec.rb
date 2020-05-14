@@ -12,7 +12,7 @@ I'd like to be able to sign in
   scenario 'Registered user tries to sign in' do
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
-    click_on 'Log in'
+    click_on 'Enter'
 
     expect(page).to have_content 'Signed in successfully.'
   end
@@ -20,7 +20,7 @@ I'd like to be able to sign in
   scenario 'Unregisterd user tries to sing in' do
     fill_in 'Email', with: 'wrong@test.com'
     fill_in 'Password', with: '123456789'
-    click_on 'Log in'
+    click_on 'Enter'
 
     expect(page).to have_content 'Invalid Email or password'
   end
