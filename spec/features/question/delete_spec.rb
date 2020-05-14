@@ -6,8 +6,8 @@ feature 'An author of the question can delete the own question' do
   describe 'Authenticated user' do
     given(:user1) { create(:user) }
     given(:user2) { create(:user) }
-    given(:question1) { create(:question, user: user1) }
-    given(:question2) { create(:question, user: user2) }
+    given(:question1) { create(:question, author: user1) }
+    given(:question2) { create(:question, author: user2) }
     before { sign_in(user1) }
 
     scenario 'can delete the own question' do
