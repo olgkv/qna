@@ -66,6 +66,12 @@ RSpec.describe QuestionsController, type: :controller do
         expect { post :create, params: { question: attributes_for(:question) } }.to change(Question, :count).by(1)
       end
 
+      it 'question belongs to the user who is created it' do
+        post :create, params: { question: attributes_for(:question) }
+
+        expect(user).to be_author_of(assigns(:question))
+      end
+
       it 'redirects to show view' do
         post :create, params: { question: attributes_for(:question) }
 
