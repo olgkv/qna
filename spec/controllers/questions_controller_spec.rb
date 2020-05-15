@@ -137,7 +137,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe 'DELETE #destroy' do
     let!(:question) { create(:question) }
 
-    context "when authenticated uses is question's author" do
+    context "when authenticated user is question's author" do
       before { login(question.author) }
 
       it 'deletes the question' do
