@@ -3,15 +3,20 @@ require 'rails_helper'
 RSpec.describe AnswersController, type: :controller do
   let(:user) { create(:user) }
   let(:question) { create :question }
-  let(:answer) { create :answer, question: question }
 
   describe 'POST #create' do
     before { login(user) }
 
-    context 'when answer is valid' do
-      it 'saves a new answer to database' do
+    context 'with valid answer' do
+      it 'can save a new answer to database' do
         expect { post :create, params: { answer: attributes_for(:answer), question_id: question } }
           .to change(question.answers, :count).by(1)
+      end
+
+      it 'answer belongs to the user who is created it' do
+        post :create, params: { answer: attributes_for(:answer), question_id: question }
+
+        expect(user).to be_author_of(assigns(:answer))
       end
 
       it 'redirects to question show view' do
@@ -21,7 +26,7 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
 
-    context 'when answer is invalid' do
+    context 'with invalid answer' do
       it 'does not save the answer' do
         expect { post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question } }
           .not_to change(Answer, :count)
