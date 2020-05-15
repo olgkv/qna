@@ -1,6 +1,8 @@
 = render @question
 
 h2= 'Answer the question'
-=render 'answers/form', question: @question, answer: @answer
 
-=render 'answers/answers', answers: @answers
+=render 'answers/form'
+
+- unless @question.answers.count == 0
+  =render  @question.answers

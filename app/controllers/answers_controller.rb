@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_question, only: %i[new create]
+  before_action :set_question, only: %i[create]
   before_action :set_answer, only: :destroy
 
   def create
@@ -12,11 +12,6 @@ class AnswersController < ApplicationController
     else
       render 'questions/show'
     end
-  end
-
-  def new
-    @answer = @question.answers.new
-    @answer.author = current_user
   end
 
   def destroy

@@ -6,7 +6,7 @@ feature 'User can sign up' do
     click_link 'Sign up'
   end
 
-  scenario 'a new user can reate an account with valid attributes' do
+  scenario 'a new user can create an account with valid attributes' do
     fill_in 'Email', with: 'test@test.com'
     fill_in 'Password', with: '12345678'
     fill_in 'Password confirmation', with: '12345678'
