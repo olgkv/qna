@@ -10,6 +10,7 @@ gem 'webpacker', '~> 4.0'
 gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'slim-rails'
+gem 'devise'
 
 group :development, :test do
   gem 'rspec-rails', '~> 4.0.0'
@@ -28,4 +29,7 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'simplecov', require: false
 end
