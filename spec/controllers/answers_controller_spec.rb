@@ -65,6 +65,12 @@ RSpec.describe AnswersController, type: :controller do
       it 'cannot delete the question' do
         expect { delete :destroy, params: { id: answer } }.not_to change(Answer, :count)
       end
+
+      it 'redirects to question show page' do
+        delete :destroy, params: { id: answer }
+
+        expect(response).to redirect_to question_path(question)
+      end
     end
   end
 end

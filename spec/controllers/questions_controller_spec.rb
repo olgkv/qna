@@ -159,6 +159,12 @@ RSpec.describe QuestionsController, type: :controller do
       it 'cannot delete the question' do
         expect { delete :destroy, params: { id: question } }.not_to change(Question, :count)
       end
+
+      it 'redirects to index' do
+        delete :destroy, params: { id: question }
+
+        expect(response).to redirect_to questions_path
+      end
     end
   end
 end
