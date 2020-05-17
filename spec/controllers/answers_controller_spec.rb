@@ -9,20 +9,20 @@ RSpec.describe AnswersController, type: :controller do
 
     context 'with valid answer' do
       it 'can save a new answer to database' do
-        expect { post :create, params: { answer: attributes_for(:answer), question_id: question } }
+        expect { post :create, params: { answer: attributes_for(:answer), question_id: question }, format: :js }
           .to change(question.answers, :count).by(1)
       end
 
       it 'answer belongs to the user who is created it' do
-        post :create, params: { answer: attributes_for(:answer), question_id: question }
+        post :create, params: { answer: attributes_for(:answer), question_id: question, format: :js }
 
         expect(user).to be_author_of(assigns(:answer))
       end
 
-      it 'redirects to question show view' do
-        post :create, params: { answer: attributes_for(:answer), question_id: question }
+      it 'render create template' do
+        post :create, params: { answer: attributes_for(:answer), question_id: question, format: :js }
 
-        expect(response).to redirect_to question_path(assigns(:question))
+        expect(response).to render_template :create
       end
     end
 

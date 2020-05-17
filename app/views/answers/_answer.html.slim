@@ -1,5 +1,5 @@
 div id="answer-#{answer.id}"
-  =answer.body
+  = answer.body
   div
-    - if current_user&.author_of?(answer) && !answer.id.nil?
+    - if current_user&.author_of?(answer) && answer.persisted?
       = link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'Are you sure?' }

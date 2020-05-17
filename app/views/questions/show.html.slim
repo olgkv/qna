@@ -2,7 +2,7 @@
 
 h2= 'Answer the question'
 
-=render 'answers/form'
+.answers
+  = render  @question.answers
 
-- unless @question.answers.count == 0
-  =render  @question.answers
+= render 'answers/form'

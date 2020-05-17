@@ -4,10 +4,7 @@ class AnswersController < ApplicationController
   before_action :set_answer, only: :destroy
 
   def create
-    @answer = @question.answers.new(answer_params)
-    @answer.author = current_user
-
-    redirect_to @question, notice: 'Your answer was successfully created' if @answer.save
+    @answer = @question.answers.create(answer_params.merge(user_id: current_user.id))
   end
 
   def destroy

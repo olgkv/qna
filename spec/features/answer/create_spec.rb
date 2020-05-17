@@ -21,7 +21,6 @@ feature 'User can create an answer to the question', "
 
       click_on 'Answer'
 
-      expect(page).to have_content 'Your answer was successfully created'
       expect(page).to have_content 'Good. Answer body text'
     end
 
