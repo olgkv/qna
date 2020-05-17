@@ -12,6 +12,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'slim-rails'
 gem 'devise'
 gem 'turbolinks'
+gem 'selenium-webdriver', '~> 3.142'
 
 group :development, :test do
   gem 'rspec-rails', '~> 4.0.0'
