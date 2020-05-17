@@ -14,7 +14,7 @@ feature 'User can create an answer to the question', "
       visit question_path(question)
     end
 
-    scenario 'Answer the question' do
+    scenario 'can answer the question', js: true do
       expect(page).to have_current_path(question_path(question))
 
       fill_in 'Body', with: 'Good. Answer body text'
@@ -25,7 +25,7 @@ feature 'User can create an answer to the question', "
       expect(page).to have_content 'Good. Answer body text'
     end
 
-    scenario 'Cannot answer the question with a blank body' do
+    scenario 'Cannot answer the question with a blank body', js: true do
       click_on 'Answer'
 
       expect(page).to have_content "Body can't be blank"
