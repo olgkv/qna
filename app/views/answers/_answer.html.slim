@@ -1,5 +1,11 @@
 div id="answer-#{answer.id}"
   = answer.body
   div
-    - if current_user&.author_of?(answer) && answer.persisted?
-      = link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'Are you sure?' }
+    - if current_user&.author_of?(answer) && answer.persisted? && user_signed_in?
+      p= link_to 'Edit'
+      p= link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'Are you sure?' }
+
+= form_with model: answer do |f|
+  = f.label :body, 'Your answer'
+  = f.text_area :body
+  = f.submit 'Save'
