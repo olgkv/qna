@@ -19,7 +19,7 @@ RSpec.describe AnswersController, type: :controller do
         expect(user).to be_author_of(assigns(:answer))
       end
 
-      it 'render create template' do
+      it 'renders create template' do
         post :create, params: { answer: attributes_for(:answer), question_id: question, format: :js }
 
         expect(response).to render_template :create
@@ -32,7 +32,7 @@ RSpec.describe AnswersController, type: :controller do
           .not_to change(Answer, :count)
       end
 
-      it 'renders answes create template' do
+      it 'renders create template' do
         post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question, format: :js }
 
         expect(response).to render_template :create
@@ -71,6 +71,27 @@ RSpec.describe AnswersController, type: :controller do
 
         expect(response).to redirect_to question_path(question)
       end
+    end
+  end
+
+  describe 'PATCH #update' do
+    let!(:answer) { create(:answer, question: question) }
+
+    context 'with valid attributes' do
+      it 'changes answer attributes' do
+        patch :update, params: { id: answer, answer: { body: 'new body' } }, format: :js
+        answer.reload
+
+        expect(answer.body).to eq 'new body'
+      end
+
+      it 'renders update view' do
+        patch :update, params: { id: answer, answer: { body: 'new body' } }, format: :js
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'with invalid attributes' do
     end
   end
 end
