@@ -77,11 +77,12 @@ RSpec.describe AnswersController, type: :controller do
   describe 'PATCH #update' do
     let!(:answer) { create(:answer, question: question) }
 
+    before { login(user) }
+
     context 'with valid attributes' do
-      it 'changes answer attributes' do
+      it 'changes the answer attributes' do
         patch :update, params: { id: answer, answer: { body: 'new body' } }, format: :js
         answer.reload
-
         expect(answer.body).to eq 'new body'
       end
 
