@@ -15,10 +15,15 @@ feature 'User can edit the answer', "
   end
 
   describe 'Authenticated user' do
-    scenario 'edits his answer', js: true do
+    given!(:user1) { create(:user) }
+    given!(:answer1) { create(:answer, question: question, author: user1) }
+
+    before do
       sign_in(user)
       visit question_path(question)
+    end
 
+    scenario 'edits his answer', js: true do
       click_on 'Edit'
 
       within '.answers' do
@@ -31,7 +36,26 @@ feature 'User can edit the answer', "
       end
     end
 
-    scenario 'edits his answer with errors'
-    scenario "tries to edit other user's question"
+    scenario 'edits his answer with errors', js: true do
+      click_on 'Edit'
+
+      within '.answers' do
+        fill_in 'Your answer', with: ''
+        click_on 'Save'
+        expect(page).to have_content answer.body
+      end
+
+      within '.answers-errors' do
+        expect(page).to have_content "Body can't be blank"
+      end
+    end
+
+    scenario "tries to edit other user's question", js: true do
+      within '.answers' do
+        within find(id: "answer-#{answer1.id}") do
+          expect(page).not_to have_link 'Edit'
+        end
+      end
+    end
   end
 end
