@@ -7,6 +7,8 @@
 h2= 'Answer the question'
 
 .answers
-  = render  @question.answers
+  .best-answer
+    = render @question.best_answer if @question.best_answer
+  = render  @question.answers.order('best DESC')
 
 = render 'answers/form'
