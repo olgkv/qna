@@ -15,6 +15,11 @@ div id="answer-#{answer.id}"
 
 
 = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}"} do |f|
-  = f.label :body, 'Your answer'
-  = f.text_area :body
-  = f.submit 'Save'
+  p
+    = f.label :body, 'Your answer'
+    = f.text_area :body
+  p
+    = f.label :files
+    = f.file_field :files, multiple: true
+
+  p= f.submit 'Save'
