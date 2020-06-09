@@ -1,8 +1,14 @@
 = render @question
 
+.question-errors
+ = render 'shared/errors', resource: @question
+
+
 h2= 'Answer the question'
 
-=render 'answers/form'
+.answers
+  .best-answer
+    = render @question.best_answer if @question.best_answer
+  = render  @question.answers.order('best DESC')
 
-- unless @question.answers.count == 0
-  =render  @question.answers
+= render 'answers/form'

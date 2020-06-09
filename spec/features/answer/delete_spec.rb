@@ -10,18 +10,20 @@ feature "Only an answer's author can delete it" do
   describe 'Authenticated user' do
     before { sign_in(user1) }
 
-    scenario 'can delete his answer' do
+    scenario 'can delete his answer', js: true do
       visit question_path(question)
 
-      within("div#answer-#{answer1.id}") do
-        click_on 'Delete'
+      accept_alert do
+        within("div#answer-#{answer1.id}") do
+          click_on 'Delete'
+        end
       end
 
-      expect(page).to have_content 'Answer was successfully deleted'
+      expect(page).not_to have_selector "#answer-#{answer1.id}"
       expect(page).not_to have_content answer1.body
     end
 
-    scenario "cannot delete someone's answer" do
+    scenario "cannot delete someone's answer", js: true do
       visit question_path(question)
 
       within("div#answer-#{answer2.id}") do
@@ -31,7 +33,7 @@ feature "Only an answer's author can delete it" do
   end
 
   describe 'Unauthenticated user' do
-    scenario 'cannot delete the answers' do
+    scenario 'cannot delete the answers', js: true do
       visit question_path(question)
 
       within("div#answer-#{answer1.id}") do
