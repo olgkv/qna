@@ -5,6 +5,8 @@ class Question < ApplicationRecord
 
   has_many_attached :files
 
+  accepts_nested_attributes_for :links
+
   validates :title, :body, presence: true
 
   def best_answer
