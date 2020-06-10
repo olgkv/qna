@@ -6,6 +6,12 @@
 
 h2= 'Answer the question'
 
+.links
+  p Links:
+  ul
+    - @question.links.each do |link|
+      li= link_to link.name, link.url
+
 .answers
   .best-answer
     = render @question.best_answer if @question.best_answer
