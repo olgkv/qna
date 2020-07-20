@@ -69,5 +69,22 @@ feature 'User can edit own a question' do
       expect(page).to have_link 'rails_helper.rb'
       expect(page).to have_link 'spec_helper.rb'
     end
+
+    scenario 'can add links while editing the question', js: true do
+      visit question_path(question)
+
+      within find("#question-#{question.id}") do
+        click_on 'Edit'
+
+        click_on 'Add link'
+
+        fill_in 'Link name', with: 'Developer'
+        fill_in 'Url', with: 'https://dev.to'
+
+        click_on 'Save'
+
+        expect(page).to have_link 'Developer', href: 'https://dev.to'
+      end
+    end
   end
 end

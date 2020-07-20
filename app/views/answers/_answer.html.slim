@@ -19,12 +19,19 @@ div id="answer-#{answer.id}"
       div
         = link_to 'Best', best_answer_path(answer), method: :patch, remote: true
 
-= form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
-  p
-    = f.label :body, 'Your answer'
-    = f.text_area :body
-  p
-    = f.label :files
-    = f.file_field :files, multiple: true, direct_upload: true
+  = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+    p
+      = f.label :body, 'Your answer'
+      = f.text_area :body
+    p
+      = f.label :files
+      = f.file_field :files, multiple: true, direct_upload: true
 
-  p = f.submit 'Save'
+    p Links:
+    p
+      = f.fields_for :links do |l|
+        = render 'shared/link_fields', f: l
+      .links
+        = link_to_add_association 'Add link', f, :links, partial: 'shared/link_fields'
+
+    p = f.submit 'Save'
