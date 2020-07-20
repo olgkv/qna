@@ -1,13 +1,13 @@
 div id="question-#{question.id}"
-  h1= question.title
-  p= question.body
+  h1 = question.title
+  p = question.body
 
   - if question.files.attached?
   - question.files.each do |file|
     div id="file-#{file.id}"
-      p= link_to file.filename.to_s, url_for(file)
+      p = link_to file.filename.to_s, url_for(file)
       - if current_user&.author_of?(question)
-          p= link_to 'Delete file',  file_path(file), method: :delete, remote: true
+          p = link_to 'Delete file', file_path(file), method: :delete, remote: true
 
   - if current_user&.author_of?(question)
       div
@@ -26,3 +26,6 @@ div id="question-#{question.id}"
           = f.file_field :files, multiple: true, direct_upload: true
 
         = f.submit 'Save'
+
+  - question.links.any?
+    = render 'shared/links', resource: question

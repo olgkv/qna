@@ -5,18 +5,9 @@
 
 h2 = 'Answer the question'
 
-.links
-  p Links:
-  ul
-    - @question.links.each do |link|
-      li = link_to link.name, link.url
-
-      - if link.gist_link? && (content = gist_content(link))
-        = render 'shared/gist', content: content
-
 .answers
   .best-answer
     = render @question.best_answer if @question.best_answer
-  = render  @question.answers.order('best DESC')
+  = render @question.answers.order('best DESC')
 
 = render 'answers/form'
