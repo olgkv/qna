@@ -8,8 +8,4 @@ class Question < ApplicationRecord
   accepts_nested_attributes_for :links, reject_if: :all_blank
 
   validates :title, :body, presence: true
-
-  def best_answer
-    answers.find_by(best: true)
-  end
 end

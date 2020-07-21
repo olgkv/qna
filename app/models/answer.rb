@@ -11,9 +11,11 @@ class Answer < ApplicationRecord
 
   validates :best, uniqueness: { scope: :question_id }, if: :best?
 
+  scope :best, -> { order(best: :desc) }
+
   def set_best
     transaction do
-      question.best_answer&.update!(best: false)
+      question.answers.best&.update_all(best: false)
       update!(best: true)
     end
   end
