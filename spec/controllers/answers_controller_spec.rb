@@ -134,8 +134,8 @@ RSpec.describe AnswersController, type: :controller do
 
   describe 'PATCH #best' do
     let!(:question) { create(:question, author: user) }
-    let!(:answer) { create(:answer, question: question) }
-    let!(:answer1) { create(:answer) }
+    let!(:answer) { create(:answer, question: question, author: user) }
+    let!(:reward) { create(:reward, question: question) }
 
     context 'when the author of the question set best the answer' do
       before { login(question.author) }
@@ -150,6 +150,11 @@ RSpec.describe AnswersController, type: :controller do
       it 'renders best view' do
         patch :best, params: { id: answer }, format: :js
         expect(response).to render_template :best
+      end
+
+      it 'adds reward to author of answer' do
+        patch :best, params: { id: answer }, format: :js
+        expect(assigns(:answer).author.rewards.last).to eq reward
       end
     end
 

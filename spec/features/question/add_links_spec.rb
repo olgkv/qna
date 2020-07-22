@@ -13,8 +13,10 @@ I'd like to be able to add links
     sign_in(user)
     visit new_question_path
 
-    fill_in 'Title', with: 'Test question'
-    fill_in 'Body', with: 'text text text'
+    within('.question-form') do
+      fill_in 'Title', with: 'Test question'
+      fill_in 'Body', with: 'text text text'
+    end
 
     fill_in 'Link name', with: 'My gist'
     fill_in 'Url', with: gist_url
@@ -28,15 +30,19 @@ I'd like to be able to add links
     sign_in(user)
     visit new_question_path
 
-    fill_in 'Title', with: 'Test question'
-    fill_in 'Body', with: 'text text text'
+    within('.question-form') do
+      fill_in 'Title', with: 'Test question'
+      fill_in 'Body', with: 'text text text'
+    end
 
     2.times { click_on 'Add link' }
 
-    all('.nested-fields').each do |link_field|
-      within(link_field) do
-        fill_in 'Link name', with: 'My gist'
-        fill_in 'Url', with: gist_url
+    within('.link-form') do
+      all('.nested-fields').each do |link_field|
+        within(link_field) do
+          fill_in 'Link name', with: 'My gist'
+          fill_in 'Url', with: gist_url
+        end
       end
     end
 
@@ -49,8 +55,10 @@ I'd like to be able to add links
     sign_in(user)
     visit new_question_path
 
-    fill_in 'Title', with: 'Test question'
-    fill_in 'Body', with: 'text text text'
+    within('.question-form') do
+      fill_in 'Title', with: 'Test question'
+      fill_in 'Body', with: 'text text text'
+    end
 
     fill_in 'Link name', with: 'My gist'
     fill_in 'Url', with: gist_url_invalid

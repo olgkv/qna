@@ -9,6 +9,12 @@ div id="question-#{question.id}"
       - if current_user&.author_of?(question)
           p = link_to 'Delete file', file_path(file), method: :delete, remote: true
 
+  - if question.reward.present?
+    p
+      = image_tag(url_for(question.reward.image), size: "200x200",  alt: question.reward.title)
+    p
+      = question.reward.title
+
   - if current_user&.author_of?(question)
       div
         = link_to 'Delete', question_path(question), method: :delete, data: { confirm: 'Are you sure?' }

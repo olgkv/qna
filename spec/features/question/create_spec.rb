@@ -16,8 +16,11 @@ I'd like to be able to ask the question
     end
 
     scenario 'Authenticated user asks a question' do
-      fill_in 'Title', with: 'Test question'
-      fill_in 'Body', with: 'text text text'
+      within('.question-form') do
+        fill_in 'Title', with: 'Test question'
+        fill_in 'Body', with: 'text text text'
+      end
+
       click_on 'Ask'
 
       expect(page).to have_content 'Your question successfully created'
@@ -32,14 +35,34 @@ I'd like to be able to ask the question
     end
 
     scenario 'asks a question with attached files' do
-      fill_in 'Title', with: 'Test question'
-      fill_in 'Body', with: 'text text text'
+      within('.question-form') do
+        fill_in 'Title', with: 'Test question'
+        fill_in 'Body', with: 'text text text'
+      end
 
       attach_file 'File', [Rails.root.join('spec/rails_helper.rb'), Rails.root.join('spec/spec_helper.rb')]
       click_on 'Ask'
 
       expect(page).to have_link 'rails_helper.rb'
       expect(page).to have_link 'spec_helper.rb'
+    end
+
+    scenario 'asks a question with a reward' do
+      within('.question-form') do
+        fill_in 'Title', with: 'Test question'
+        fill_in 'Body', with: 'text text text'
+      end
+
+      within('.reward-form') do
+        fill_in 'Title', with: 'RewardName'
+      end
+
+      attach_file 'Image', Rails.root.join('spec/rails_helper.rb')
+      click_on 'Ask'
+
+      expect(page).to have_content 'Your question successfully created'
+      expect(page).to have_content 'RewardName'
+      expect(page).to have_css("img[src*='rails_helper.rb']")
     end
   end
 

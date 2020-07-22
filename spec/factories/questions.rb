@@ -11,5 +11,9 @@ FactoryBot.define do
     trait :invalid do
       title { nil }
     end
+
+    trait :with_reward do
+      after(:create) { |question| create(:reward, question: question) }
+    end
   end
 end

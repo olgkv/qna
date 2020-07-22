@@ -1,0 +1,9 @@
+.nested-fields
+  p
+    = f.label :title, 'Title'
+    = f.text_field :title
+  p
+    = f.label :image
+    = f.file_field :image
+  p
+    = link_to_remove_association 'Remove reward', f
