@@ -8,6 +8,7 @@
     "@rails/webpacker": "4.2.2",
     "cocoon": "github:nathanvda/cocoon#c24ba53",
     "jquery": "^3.5.1",
+    "lodash": "^4.17.19",
     "turbolinks": "^5.2.0",
     "websocket-extensions": "^0.1.4"
   },
