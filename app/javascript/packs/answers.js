@@ -7,14 +7,16 @@ $(document).on('turbolinks:load', () => {
   });
 
   $('form.new-answer').on('ajax:success', (e) => {
-    const xhr = e.detail[2];
+    const answer = e.detail[0];
 
-    $('.answers').append(xhr.responseText);
+    $('.answers').append(`<p>${answer.body}</p>`);
     $('.answers-errors').html('');
   })
     .on('ajax:error', (e) => {
-      const xhr = e.detail[2];
+      const errors = e.detail[0];
 
-      $('.answers-errors').html(xhr.responseText);
+      $.each(errors, (index, value) => {
+        $('.answers-errors').append(`<p>${value}</p>`);
+      });
     });
 });
