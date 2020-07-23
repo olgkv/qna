@@ -5,4 +5,16 @@ $(document).on('turbolinks:load', () => {
     const answerId = $(this).data('answerId');
     $(`form#edit-answer-${answerId}`).removeClass('hidden');
   });
+
+  $('form.new-answer').on('ajax:success', (e) => {
+    const xhr = e.detail[2];
+
+    $('.answers').append(xhr.responseText);
+    $('.answers-errors').html('');
+  })
+    .on('ajax:error', (e) => {
+      const xhr = e.detail[2];
+
+      $('.answers-errors').html(xhr.responseText);
+    });
 });
