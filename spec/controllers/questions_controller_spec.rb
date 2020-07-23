@@ -29,18 +29,31 @@ RSpec.describe QuestionsController, type: :controller do
       expect(assigns(:answer)).to be_a_new(Answer)
     end
 
+    it 'assigns new link for answer' do
+      expect(assigns(:answer).links.first).to be_a_new(Link)
+    end
+
     it 'renders show view' do
       expect(response).to render_template :show
     end
   end
 
   describe 'GET #new' do
-    before { login(user) }
-
-    before { get :new }
+    before do
+      login(user)
+      get :new
+    end
 
     it 'assigns a new Question to @question' do
       expect(assigns(:question)).to be_a_new(Question)
+    end
+
+    it 'assigns a new Question to @question with links' do
+      expect(assigns(:question).links.first).to be_a_new(Link)
+    end
+
+    it 'assigns a new Award to @question' do
+      expect(assigns(:question).reward).to be_a_new(Reward)
     end
 
     it 'renders show view' do
@@ -49,9 +62,10 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #edit' do
-    before { login(user) }
-
-    before { get :edit, params: { id: question } }
+    before do
+      login(user)
+      get :edit, params: { id: question }
+    end
 
     it 'assigns the requested question to @question' do
       expect(assigns(:question)).to eq(question)

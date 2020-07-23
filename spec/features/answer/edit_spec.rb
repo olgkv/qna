@@ -70,5 +70,20 @@ feature 'User can edit the answer', "
           expect(page).to have_link 'spec_helper.rb'
         end
       end
+
+      scenario 'can add links while editing the answer', js: true do
+        within find("#answer-#{answer.id}") do
+          click_on 'Edit'
+
+          click_on 'Add link'
+
+          fill_in 'Link name', with: 'Developer'
+          fill_in 'Url', with: 'https://dev.to'
+
+          click_on 'Save'
+
+          expect(page).to have_link 'Developer', href: 'https://dev.to'
+        end
+      end
     end
   end

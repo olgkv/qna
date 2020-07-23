@@ -3,11 +3,14 @@ require 'rails_helper'
 RSpec.describe Answer, type: :model do
   describe 'relationships' do
     it { should belong_to :question }
+    it { should have_many(:links).dependent(:destroy) }
     it { should belong_to(:author).class_name(:User) }
 
     it 'have many attached files' do
       expect(Answer.new.files).to be_an_instance_of(ActiveStorage::Attached::Many)
     end
+
+    it { should accept_nested_attributes_for :links }
   end
 
   describe 'validations' do
@@ -28,10 +31,14 @@ RSpec.describe Answer, type: :model do
 
   describe '#set_best' do
     let!(:user) { create(:user) }
-    let!(:question) { create(:question, author: user) }
-    let!(:answer1) { create(:answer, best: true, question: question) }
-    let!(:answer2) { create(:answer, best: false, question: question) }
-    let!(:answer3) { create(:answer, best: false, question: question) }
+    let!(:other_user) { create(:user) }
+    let!(:user2) { create(:user) }
+    let!(:question) { create(:question, :with_reward, author: user) }
+    let!(:question1) { create(:question, :with_reward, author: user) }
+    let!(:answer1) { create(:answer, best: true, question: question, author: user) }
+    let!(:answer2) { create(:answer, best: false, question: question, author: other_user) }
+    let!(:answer3) { create(:answer, best: false, question: question, author: user2) }
+    let!(:answer4) { create(:answer, best: false, question: question1, author: user2) }
 
     before do
       answer2.set_best
@@ -47,6 +54,18 @@ RSpec.describe Answer, type: :model do
     it 'does not set best answer to others answers' do
       expect(answer1).not_to be_best
       expect(answer3).not_to be_best
+    end
+
+    it 'adds reward to author of best answer' do
+      expect(other_user.rewards.first).to eq question.reward
+    end
+
+    it 'does not change rewards of the author if answer already was the best' do
+      expect { answer2.set_best }.not_to change(other_user.rewards, :count)
+    end
+
+    it "changes rewards of the author if answer wasn't the best" do
+      expect { answer4.set_best }.to change(user2.rewards, :count).by(1)
     end
   end
 end

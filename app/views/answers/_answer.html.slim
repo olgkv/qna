@@ -1,28 +1,38 @@
 div id="answer-#{answer.id}"
   = answer.body
+
+  - answer.links.any?
+    = render 'shared/links', resource: answer
+
   - if answer.files.attached?
     - answer.files.each do |file|
       div id="file-#{file.id}"
-        p= link_to file.filename.to_s, url_for(file)
+        p = link_to file.filename.to_s, url_for(file)
         - if current_user&.author_of?(answer)
-            p= link_to 'Delete file', file_path(file), method: :delete, remote: true
+            p = link_to 'Delete file', file_path(file), method: :delete, remote: true
 
-
-  div
-    - if current_user&.author_of?(answer) && answer.persisted? && user_signed_in?
-      p= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
-      p= link_to 'Delete', answer_path(answer), method: :delete, remote: true, data: { confirm: 'Are you sure?' }
-    - if current_user&.author_of?(answer.question) && !answer.best?
-      div
-        = link_to 'Best', best_answer_path(answer), method: :patch, remote: true
-
-
-= form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}"} do |f|
   p
-    = f.label :body, 'Your answer'
-    = f.text_area :body
-  p
-    = f.label :files
-    = f.file_field :files, multiple: true, direct_upload: true
+    div
+      - if current_user&.author_of?(answer) && answer.persisted? && user_signed_in?
+        div = link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+        div = link_to 'Delete', answer_path(answer), method: :delete, remote: true, data: { confirm: 'Are you sure?' }
+      - if current_user&.author_of?(answer.question) && !answer.best?
+        div
+          = link_to 'Best', best_answer_path(answer), method: :patch, remote: true
 
-  p= f.submit 'Save'
+  = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+    p
+      = f.label :body, 'Your answer'
+      = f.text_area :body
+    p
+      = f.label :files
+      = f.file_field :files, multiple: true, direct_upload: true
+
+    p Links:
+    p
+      = f.fields_for :links do |l|
+        = render 'shared/link_fields', f: l
+      .links
+        = link_to_add_association 'Add link', f, :links, partial: 'shared/link_fields'
+
+    p = f.submit 'Save'

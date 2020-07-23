@@ -14,6 +14,8 @@ gem 'devise'
 gem 'turbolinks'
 gem 'selenium-webdriver', '~> 3.142'
 gem 'aws-sdk-s3'
+gem 'cocoon'
+gem 'octokit'
 
 group :development, :test do
   gem 'rspec-rails', '~> 4.0.0'
