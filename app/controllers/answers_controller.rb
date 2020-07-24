@@ -4,17 +4,7 @@ class AnswersController < ApplicationController
   before_action :set_answer, only: %i[destroy update best]
 
   def create
-    @answer = @question.answers.new(answer_params.merge(user_id: current_user.id))
-
-    respond_to do |format|
-      if @answer.save
-        format.json { render json: @answer }
-      else
-        format.json do
-          render json: @answer.errors.full_messages, status: :unprocessable_entity
-        end
-      end
-    end
+    @answer = @question.answers.create(answer_params.merge(user_id: current_user.id))
   end
 
   def update
