@@ -4,7 +4,8 @@ RSpec.describe User, type: :model do
   describe 'relationships' do
     it { should have_many(:questions).dependent(:destroy) }
     it { should have_many(:answers).dependent(:destroy) }
-    it { should have_many(:rewards) }
+    it { should have_many(:rewards).dependent(:destroy) }
+    it { should have_many(:votes).dependent(:destroy) }
   end
 
   describe '#author_of?' do
