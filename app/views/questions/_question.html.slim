@@ -2,8 +2,8 @@ div id="question-#{question.id}"
   h2 = link_to question.title, question_path(question)
   p = question.body
 
-
-  = render 'shared/votes', resource: question
+  p id="question-votes-amount-#{question.id}"
+    = render 'shared/votes', resource: question
 
   - if question.files.attached?
   - question.files.each do |file|
