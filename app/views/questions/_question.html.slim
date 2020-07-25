@@ -2,6 +2,9 @@ div id="question-#{question.id}"
   h2 = link_to question.title, question_path(question)
   p = question.body
 
+
+  = render 'shared/votes', resource: question
+
   - if question.files.attached?
   - question.files.each do |file|
     div id="file-#{file.id}"
@@ -11,7 +14,7 @@ div id="question-#{question.id}"
 
   - if question.reward.present?
     p
-      = image_tag(url_for(question.reward.image), size: "200x200",  alt: question.reward.title)
+      = image_tag(url_for(question.reward.image), size: '200x200', alt: question.reward.title)
     p
       = question.reward.title
 
@@ -42,3 +45,4 @@ div id="question-#{question.id}"
 
   - question.links.any?
     = render 'shared/links', resource: question
+
