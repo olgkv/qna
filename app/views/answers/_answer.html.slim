@@ -1,6 +1,9 @@
 div id="answer-#{answer.id}"
   = answer.body
 
+  p id="answer-votes-amount-#{answer.id}"
+    = render 'shared/votes', resource: answer
+
   - answer.links.any?
     = render 'shared/links', resource: answer
 

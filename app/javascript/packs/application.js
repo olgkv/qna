@@ -11,6 +11,7 @@ require('channels');
 require('jquery');
 require('cocoon');
 require('./answers');
+require('./voting');
 require('./question');
 
 // Uncomment to copy all static images under ../images to the output folder and reference

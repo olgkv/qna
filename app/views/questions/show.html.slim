@@ -7,6 +7,8 @@ h2 = 'Answer the question'
 
 .answers
   .best-answer
-    = render @question.answers.best
+   = render @question.answers.best
 
 = render 'answers/form'
+
+= link_to 'Back', questions_path
